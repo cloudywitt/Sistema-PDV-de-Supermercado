@@ -1,4 +1,4 @@
 package mercadoria;
 
-public class Produto {
+public abstract class Produto {
 }
