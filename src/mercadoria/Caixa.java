@@ -2,10 +2,7 @@ package mercadoria;
 
 import utilitarios.TipoDeProduto;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -55,5 +52,18 @@ public class Caixa {
         ) {
             oos.writeObject(produto);
         }
+    }
+
+    /**
+     *
+     * @param caminho Caminho para o arquivo do produto.
+     * @return Retorna uma classe do tipo Produto com as informações do produto.
+     * @throws IOException Pode não encontrar o arquivo/classe ou não conseguir abri-lo.
+     */
+    public Produto lerProduto(String caminho) throws IOException, ClassNotFoundException {
+        FileInputStream arquivoProduto = new FileInputStream(caminho);
+        ObjectInputStream ois = new ObjectInputStream(arquivoProduto);
+
+        return (Produto) ois.readObject();
     }
 }
