@@ -16,6 +16,14 @@ public class Produto {
         this.tipo = tipo;
     }
 
+    public double getPreco() {
+        return preco;
+    }
+
+    public TipoDeProduto getTipo() {
+        return tipo;
+    }
+
     @Override
     public String toString() {
         return  quantidade + "x " +
