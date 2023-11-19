@@ -2,7 +2,9 @@ package mercadoria;
 
 import utilitarios.TipoDeProduto;
 
-public class Produto {
+import java.io.Serializable;
+
+public class Produto implements Serializable {
     private final String descricao;
     private final long codigoDeBarras;
     private final double preco;
@@ -14,6 +16,10 @@ public class Produto {
         this.codigoDeBarras = codigoDeBarras;
         this.preco = preco;
         this.tipo = tipo;
+    }
+
+    public long getCodigoDeBarras() {
+        return codigoDeBarras;
     }
 
     public double getPreco() {
