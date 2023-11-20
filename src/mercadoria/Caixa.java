@@ -66,4 +66,36 @@ public class Caixa {
 
         return (Produto) ois.readObject();
     }
+
+    public void fecharCompra(double valorRecebido) {
+        // tem que limpar a lista de compra, validar as formas de pagamento etc.
+
+        carrinho.clear();
+        totalDaCompra = 0.0;
+    }
+
+    public void gerarNotaFiscal() {
+        final String CAMINHO = "dados/nota.txt";
+
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(CAMINHO))) {
+            writer.write("|--------------- ANGELO SUPERMERCADOS --------------|\n");
+            writer.write("|---------------------------------------------------|\n");
+            writer.write("|-------------------- NOTA FISCAL ------------------|\n");
+            // writer.write("| CAIXA: " + this.funcionario.id + "              DATA: " |\n");
+            writer.write("| CAIXA:                                  DATA:     |\n");
+            writer.write("| UNIDADE             PRODUTO                   R$  |\n");
+
+            for (Produto produto : this.carrinho) {
+                writer.write("| " + produto.getDescricao() + "\n");
+            }
+
+            writer.write("|                                   TOTAL: R$" + this.totalDaCompra + "|\n");
+            writer.write("|                                   TROCO: R$       |\n");
+            writer.write("| FORMA DE PAGAMENTO:                               |\n");
+            writer.write("| ATENDENTE:                                        |\n");
+            writer.write("|---------------------------------------------------|\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
