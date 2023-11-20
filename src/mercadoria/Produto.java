@@ -18,6 +18,9 @@ public class Produto implements Serializable {
         this.tipo = tipo;
     }
 
+    public String getDescricao() {
+        return quantidade + " " + descricao + " " + "R$" + preco;
+    }
     public long getCodigoDeBarras() {
         return codigoDeBarras;
     }
