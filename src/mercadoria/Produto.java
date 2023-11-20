@@ -11,7 +11,12 @@ public class Produto implements Serializable {
     private final TipoDeProduto tipo;
     private int quantidade = 1;
 
-    public Produto(String descricao, long codigoDeBarras, double preco, TipoDeProduto tipo) {
+    public Produto(
+            String descricao,
+            long codigoDeBarras,
+            double preco,
+            TipoDeProduto tipo
+    ) {
         this.descricao = descricao;
         this.codigoDeBarras = codigoDeBarras;
         this.preco = preco;

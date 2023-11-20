@@ -39,16 +39,16 @@ public class Caixa {
      * verifica se um item de venda somente para adultos foi adicionado
      * para modificar a variável temItemRestrito.
      *
-     * @param p Produto que vai ser adicionado.
+     * @param produto Produto que vai ser adicionado.
      */
-    public void adicionarProduto(Produto p) {
-        if (p.getTipo() == TipoDeProduto.ADULTO) {
+    public void adicionarProduto(Produto produto) {
+        if (produto.getTipo() == TipoDeProduto.ADULTO) {
             this.temItemRestrito = true;
         }
 
-        this.totalDaCompra += p.getPreco();
+        this.totalDaCompra += produto.getPreco();
 
-        this.carrinho.add(p);
+        this.carrinho.add(produto);
     }
 
     /**
@@ -61,14 +61,14 @@ public class Caixa {
         // leva em conta que o produto não existe no banco
 
         final String CAMINHO_DO_DIRETORIO = "dados/produtos/";
-        final String PATH = CAMINHO_DO_DIRETORIO + produto.getCodigoDeBarras() + ".txt";
+        final String CAMINHO_DOS_PRODUTOS = CAMINHO_DO_DIRETORIO + produto.getCodigoDeBarras() + ".txt";
 
-        System.out.println(PATH);
+        System.out.println(CAMINHO_DOS_PRODUTOS);
 
-        Files.createFile(Paths.get(PATH));
+        Files.createFile(Paths.get(CAMINHO_DOS_PRODUTOS));
 
         try (
-            FileOutputStream arquivoDoProduto = new FileOutputStream(PATH);
+            FileOutputStream arquivoDoProduto = new FileOutputStream(CAMINHO_DOS_PRODUTOS);
             ObjectOutputStream oos = new ObjectOutputStream(arquivoDoProduto);
         ) {
             oos.writeObject(produto);
@@ -81,11 +81,11 @@ public class Caixa {
      * @return Retorna uma classe do tipo Produto com as informações do produto.
      * @throws IOException Pode não encontrar o arquivo/classe ou não conseguir abri-lo.
      */
-    public Produto lerProduto(String caminho) throws IOException, ClassNotFoundException {
-        FileInputStream arquivoProduto = new FileInputStream(caminho);
-        ObjectInputStream ois = new ObjectInputStream(arquivoProduto);
+    public Produto lerProduto(final String CAMINHO_DO_PRODUTO) throws IOException, ClassNotFoundException {
+        FileInputStream arquivoProduto = new FileInputStream(CAMINHO_DO_PRODUTO);
+        ObjectInputStream objectStream = new ObjectInputStream(arquivoProduto);
 
-        return (Produto) ois.readObject();
+        return (Produto) objectStream.readObject();
     }
 
     public void fecharCompra(double valorRecebido) {
@@ -97,9 +97,9 @@ public class Caixa {
     }
 
     public void gerarNotaFiscal() {
-        final String CAMINHO = "dados/nota.txt";
+        final String CAMINHO_DA_NOTA = "dados/nota.txt";
 
-        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(CAMINHO))) {
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(CAMINHO_DA_NOTA))) {
             writer.write("|--------------- ANGELO SUPERMERCADOS --------------|\n");
             writer.write("|---------------------------------------------------|\n");
             writer.write("|-------------------- NOTA FISCAL ------------------|\n");
