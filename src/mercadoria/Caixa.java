@@ -3,15 +3,36 @@ package mercadoria;
 import utilitarios.TipoDeProduto;
 
 import java.io.*;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Caixa {
+    public Map<Long, Produto> BancoDeProdutos = new HashMap<>();
+
     private List<Produto> carrinho = new ArrayList<>();
     private boolean temItemRestrito;
     private double totalDaCompra;
+
+    /**
+     * Lê todos os arquivos de um dado caminho contendo objetos de produtos e armazena em BancoDeProdutos.
+     * @param CAMINHO_PARA_PRODUTOS Lugar de onde será lido os arquivos dos produtos.
+     * @throws IOException Pode não conseguir abrir o arquivo
+     * @throws ClassNotFoundException Pode não achar o objeto ou ele não ser compatível.
+     */
+    public void carregarProdutos(final Path CAMINHO_PARA_PRODUTOS) throws IOException, ClassNotFoundException {
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(CAMINHO_PARA_PRODUTOS)) {
+            for (Path file : directoryStream) {
+                Produto produto = this.lerProduto(file.toString());
+                BancoDeProdutos.put(produto.getCodigoDeBarras(), produto);
+            }
+        }
+    }
 
     /**
      * Adiciona um produto no carrinho, soma o preço ao totalDaCompra e
@@ -70,6 +91,7 @@ public class Caixa {
     public void fecharCompra(double valorRecebido) {
         // tem que limpar a lista de compra, validar as formas de pagamento etc.
 
+        gerarNotaFiscal();
         carrinho.clear();
         totalDaCompra = 0.0;
     }
