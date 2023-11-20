@@ -17,6 +17,10 @@ public class Produto implements Serializable {
             double preco,
             TipoDeProduto tipo
     ) {
+        if (preco < 0 || codigoDeBarras < 0) {
+            throw new IllegalArgumentException("Não pode preço ou código de barras menor que zero.");
+        }
+
         this.descricao = descricao;
         this.codigoDeBarras = codigoDeBarras;
         this.preco = preco;
@@ -26,6 +30,7 @@ public class Produto implements Serializable {
     public String getDescricao() {
         return quantidade + " " + descricao + " " + "R$" + preco;
     }
+
     public long getCodigoDeBarras() {
         return codigoDeBarras;
     }

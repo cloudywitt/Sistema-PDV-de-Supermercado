@@ -42,6 +42,10 @@ public class Caixa {
      * @param produto Produto que vai ser adicionado.
      */
     public void adicionarProduto(Produto produto) {
+        if (produto == null) {
+            throw new NullPointerException("Produto inválido.");
+        }
+
         if (produto.getTipo() == TipoDeProduto.ADULTO) {
             this.temItemRestrito = true;
         }
@@ -57,18 +61,13 @@ public class Caixa {
      * @throws IOException Pode dar erro de diretório não existente.
      */
     public void registrarNovoProduto(Produto produto) throws IOException {
-        // precisa verificar se o usuário tem permissão antes
-        // leva em conta que o produto não existe no banco
-
         final String CAMINHO_DO_DIRETORIO = "dados/produtos/";
-        final String CAMINHO_DOS_PRODUTOS = CAMINHO_DO_DIRETORIO + produto.getCodigoDeBarras() + ".txt";
+        final String CAMINHO_DO_PRODUTO = CAMINHO_DO_DIRETORIO + produto.getCodigoDeBarras() + ".txt";
 
-        System.out.println(CAMINHO_DOS_PRODUTOS);
-
-        Files.createFile(Paths.get(CAMINHO_DOS_PRODUTOS));
+        Files.createFile(Paths.get(CAMINHO_DO_PRODUTO));
 
         try (
-            FileOutputStream arquivoDoProduto = new FileOutputStream(CAMINHO_DOS_PRODUTOS);
+            FileOutputStream arquivoDoProduto = new FileOutputStream(CAMINHO_DO_PRODUTO);
             ObjectOutputStream oos = new ObjectOutputStream(arquivoDoProduto);
         ) {
             oos.writeObject(produto);
