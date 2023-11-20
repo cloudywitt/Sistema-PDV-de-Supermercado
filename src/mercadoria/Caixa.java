@@ -77,7 +77,7 @@ public class Caixa {
 
     /**
      *
-     * @param caminho Caminho para o arquivo do produto.
+     * @param CAMINHO_DO_PRODUTO Caminho para o arquivo do produto.
      * @return Retorna uma classe do tipo Produto com as informações do produto.
      * @throws IOException Pode não encontrar o arquivo/classe ou não conseguir abri-lo.
      */
