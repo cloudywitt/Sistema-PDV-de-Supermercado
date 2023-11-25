@@ -3,27 +3,27 @@ package usuarios;
 import java.util.ArrayList;
 import java.util.List;
 
-class Usuario {
+public class Usuario {
     private String id;
-    private String senha;
+    private String sexo;
     private int cpf;
 
     //Construtor
     
-    public Usuario (String id, String senha, int cpf) {
+    public Usuario(String id, String sexo, int cpf) {
         this.id = id;
-        this.senha = senha;
+        this.sexo = sexo;
         this.cpf = cpf;
     }
-    
+
     //Getters and Setters
     
-    public String getNome() {
-        return nome;
+    public String getId() {
+        return id;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getSexo() {
@@ -34,12 +34,12 @@ class Usuario {
         this.sexo = sexo;
     }
 
-    public int getId() {
-        return id;
+    public int getCpf() {
+        return cpf;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCpf(int cpf) {
+        this.cpf = cpf;
     }
-    
+       
 }
