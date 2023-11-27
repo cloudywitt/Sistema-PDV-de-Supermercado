@@ -4,7 +4,10 @@
  */
 package gui;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.util.Map;
+
+import static java.util.Map.entry;
 
 /**
  *
@@ -174,31 +177,34 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
+    private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtLoginActionPerformed
+    }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         TelaGerenciamento tela = new TelaGerenciamento();
-        
-        if(txtLogin.getText().equals("U") && new String (txtSenha.getPassword()).equals("123")) {
+
+        Map<String, String> logins = Map.ofEntries(
+                entry("Jester", "12345"),
+                entry("admin", "admin")
+        );
+
+        if (logins.get(txtLogin.getText()).equals(String.valueOf(txtSenha.getPassword()))) {
             JOptionPane.showMessageDialog(null,"Logado" );
             this.dipose();
             tela.setVisible(true);
-            
-         
         } else {
             JOptionPane.showMessageDialog(null,"Usuária ou senha inválidos" );
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
+    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaActionPerformed
+    }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         System.exit(0);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }
 
     /**
      * @param args the command line arguments
@@ -216,13 +222,8 @@ public class Login extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | InstantiationException |
+                 IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -250,6 +251,5 @@ public class Login extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void dipose() {
-        
     }
 }
