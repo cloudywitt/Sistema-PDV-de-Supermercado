@@ -161,7 +161,18 @@ public class ProcessarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEnviar1ActionPerformed
 
     private void btnEnviar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar2ActionPerformed
-        // TODO add your handling code here:
+        String descricao = cadNome.getText();
+        long codigoDeBarras = Long.parseLong(cadCodigo.getText(), 10);
+        double preco = Double.parseDouble(cadPreco.getText());
+        int tipo = Integer.parseInt(cadTipo.getText()); // ver sapora pra selecionar ou fazer o constructor no enum
+
+        Produto produto = new Produto(descricao, codigoDeBarras, preco, TipoDeProduto.HIGIENE);
+
+        try {
+            Caixa.registrarNovoProduto(produto);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }//GEN-LAST:event_btnEnviar2ActionPerformed
 
     private void btnEnviar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar3ActionPerformed
