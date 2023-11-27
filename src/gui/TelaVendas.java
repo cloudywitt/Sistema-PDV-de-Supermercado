@@ -4,13 +4,18 @@
  */
 package gui;
 
+import mercadoria.Caixa;
+import mercadoria.Produto;
+
 import javax.swing.table.DefaultTableModel;
+import java.io.IOException;
 
 /**
  *
  * @author Lucas
  */
 public class TelaVendas extends javax.swing.JFrame {
+    private int codigo = 1;
 
     /**
      * Creates new form TelaDeGerenciamento
@@ -64,7 +69,7 @@ public class TelaVendas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Item", "Quantidade", "Valor Unit.", "Total"
+                "Item", "Descrição", "Código", "Valor Unit."
             }
         ));
         tbVendas.setDragEnabled(true);
@@ -233,11 +238,27 @@ public class TelaVendas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessarActionPerformed
-        // TODO add your handling code here:
-        
         DefaultTableModel modelo = (DefaultTableModel) tbVendas.getModel();
-        Object[] modelo1 = {"arroz", 2, 12, 13};  
+
+        Caixa caixa = new Caixa();
+
+        try {
+            caixa.carregarProdutos();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        long codigo = Long.parseLong(jFormattedTextField1.getText());
+        Produto p = caixa.BancoDeProdutos.get(codigo);
+
+        String numero = Integer.toString(this.codigo++);
+        String descricao = p.getDescricao();
+        String codigoDeBarras = Long.toString(p.getCodigoDeBarras());
+        String preco = Double.toString(p.getPreco());
+
+        String[] modelo1 = {numero, descricao, codigoDeBarras, preco};
         modelo.addRow(modelo1);
+
     }//GEN-LAST:event_btnProcessarActionPerformed
 
     private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
