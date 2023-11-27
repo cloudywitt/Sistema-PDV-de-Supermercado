@@ -4,8 +4,11 @@
  */
 package gui;
 
-import Mercadoria.Produto;
+import mercadoria.Produto;
+import mercadoria.Caixa;
+import utilitarios.TipoDeProduto;
 import javax.swing.JOptionPane;
+import java.io.IOException;
 
 /**
  *
@@ -157,10 +160,14 @@ public class ProcessarProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar1ActionPerformed
-
+        // metodo do botão de cancelar
     }//GEN-LAST:event_btnEnviar1ActionPerformed
 
     private void btnEnviar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar2ActionPerformed
+        // botão de limpar
+    }//GEN-LAST:event_btnEnviar2ActionPerformed
+
+    private void btnEnviar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar3ActionPerformed
         String descricao = cadNome.getText();
         long codigoDeBarras = Long.parseLong(cadCodigo.getText(), 10);
         double preco = Double.parseDouble(cadPreco.getText());
@@ -173,10 +180,6 @@ public class ProcessarProduto extends javax.swing.JFrame {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }//GEN-LAST:event_btnEnviar2ActionPerformed
-
-    private void btnEnviar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar3ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnEnviar3ActionPerformed
 
     /**
