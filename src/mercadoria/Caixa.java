@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Caixa {
+    final static String CAMINHO_DOS_PRODUTOS = "dados/produtos/";
+
     public Map<Long, Produto> BancoDeProdutos = new HashMap<>();
 
     private List<Produto> carrinho = new ArrayList<>();
@@ -21,14 +23,15 @@ public class Caixa {
 
     /**
      * Lê todos os arquivos de um dado caminho contendo objetos de produtos e armazena em BancoDeProdutos.
-     * @param CAMINHO_PARA_PRODUTOS Lugar de onde será lido os arquivos dos produtos.
      * @throws IOException Pode não conseguir abrir o arquivo
      * @throws ClassNotFoundException Pode não achar o objeto ou ele não ser compatível.
      */
-    public void carregarProdutos(final Path CAMINHO_PARA_PRODUTOS) throws IOException, ClassNotFoundException {
+    public void carregarProdutos() throws IOException, ClassNotFoundException {
+        final Path CAMINHO_PARA_PRODUTOS = Paths.get(CAMINHO_DOS_PRODUTOS);
+
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(CAMINHO_PARA_PRODUTOS)) {
             for (Path file : directoryStream) {
-                Produto produto = this.lerProduto(file.toString());
+                Produto produto = lerProduto(file.toString());
                 BancoDeProdutos.put(produto.getCodigoDeBarras(), produto);
             }
         }
@@ -61,14 +64,13 @@ public class Caixa {
      * @throws IOException Pode dar erro de diretório não existente.
      */
     public static void registrarNovoProduto(Produto produto) throws IOException {
-        final String CAMINHO_DO_DIRETORIO = "dados/produtos/";
-        final String CAMINHO_DO_PRODUTO = CAMINHO_DO_DIRETORIO + produto.getCodigoDeBarras() + ".txt";
+        final String CAMINHO_DO_PRODUTO = CAMINHO_DOS_PRODUTOS + produto.getCodigoDeBarras() + ".txt";
 
         Files.createFile(Paths.get(CAMINHO_DO_PRODUTO));
 
         try (
-            FileOutputStream arquivoDoProduto = new FileOutputStream(CAMINHO_DO_PRODUTO);
-            ObjectOutputStream oos = new ObjectOutputStream(arquivoDoProduto);
+                FileOutputStream arquivoDoProduto = new FileOutputStream(CAMINHO_DO_PRODUTO);
+                ObjectOutputStream oos = new ObjectOutputStream(arquivoDoProduto);
         ) {
             oos.writeObject(produto);
         }
