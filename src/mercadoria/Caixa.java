@@ -60,7 +60,7 @@ public class Caixa {
      * @param produto Objeto que será salvo em dados/produtos
      * @throws IOException Pode dar erro de diretório não existente.
      */
-    public void registrarNovoProduto(Produto produto) throws IOException {
+    public static void registrarNovoProduto(Produto produto) throws IOException {
         final String CAMINHO_DO_DIRETORIO = "dados/produtos/";
         final String CAMINHO_DO_PRODUTO = CAMINHO_DO_DIRETORIO + produto.getCodigoDeBarras() + ".txt";
 
@@ -80,7 +80,7 @@ public class Caixa {
      * @return Retorna uma classe do tipo Produto com as informações do produto.
      * @throws IOException Pode não encontrar o arquivo/classe ou não conseguir abri-lo.
      */
-    public Produto lerProduto(final String CAMINHO_DO_PRODUTO) throws IOException, ClassNotFoundException {
+    public static Produto lerProduto(final String CAMINHO_DO_PRODUTO) throws IOException, ClassNotFoundException {
         FileInputStream arquivoProduto = new FileInputStream(CAMINHO_DO_PRODUTO);
         ObjectInputStream objectStream = new ObjectInputStream(arquivoProduto);
 
