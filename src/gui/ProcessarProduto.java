@@ -7,8 +7,10 @@ package gui;
 import mercadoria.Produto;
 import mercadoria.Caixa;
 import utilitarios.TipoDeProduto;
-import javax.swing.JOptionPane;
+
+import javax.swing.*;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
@@ -159,28 +161,31 @@ public class ProcessarProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEnviar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar1ActionPerformed
-        // metodo do botão de cancelar
-    }//GEN-LAST:event_btnEnviar1ActionPerformed
+    private void btnEnviar1ActionPerformed(java.awt.event.ActionEvent evt) {
+        System.exit(0);
+    }
 
-    private void btnEnviar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar2ActionPerformed
-        // botão de limpar
-    }//GEN-LAST:event_btnEnviar2ActionPerformed
+    private void btnEnviar2ActionPerformed(java.awt.event.ActionEvent evt) {
+        cadNome.setText("");
+        cadCodigo.setText("");
+        cadPreco.setText("");
+        cadTipo.setText("");
+    }
 
-    private void btnEnviar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar3ActionPerformed
+    private void btnEnviar3ActionPerformed(java.awt.event.ActionEvent evt) {
         String descricao = cadNome.getText();
         long codigoDeBarras = Long.parseLong(cadCodigo.getText(), 10);
         double preco = Double.parseDouble(cadPreco.getText());
-        int tipo = Integer.parseInt(cadTipo.getText()); // ver sapora pra selecionar ou fazer o constructor no enum
+        TipoDeProduto tipo = TipoDeProduto.getPorValor(Integer.parseInt(cadTipo.getText()));
 
-        Produto produto = new Produto(descricao, codigoDeBarras, preco, TipoDeProduto.HIGIENE);
+        Produto produto = new Produto(descricao, codigoDeBarras, preco, tipo);
 
         try {
             Caixa.registrarNovoProduto(produto);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }//GEN-LAST:event_btnEnviar3ActionPerformed
+    }
 
     /**
      * @param args the command line arguments
@@ -198,13 +203,8 @@ public class ProcessarProduto extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProcessarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProcessarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProcessarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException |
+                 InstantiationException ex) {
             java.util.logging.Logger.getLogger(ProcessarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
