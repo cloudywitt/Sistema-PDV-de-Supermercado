@@ -20,6 +20,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        txtSenha.setText("");
     }
 
     /**
@@ -199,7 +200,6 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
